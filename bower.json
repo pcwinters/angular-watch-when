@@ -1,0 +1,29 @@
+{
+  "name": "angular-watch-when",
+  "version": "0.0.1",
+  "main": "dist/watchWhen.js",
+  "ignore": [
+    "src",
+    "test",
+    "**/.*",
+    "bower_components",
+    "node_modules"
+  ],
+  "dependencies": {
+    "lodash": "~2",
+    "angular": "~1.3",
+    "angular-mocks": "~1.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "watch",
+    "performance"
+  ],
+  "authors": [
+    "Patrick Winters <pwinters@rallydev.com>"
+  ],
+  "homepage": "https://github.com/pcw216/angular-watch-when",
+  "repository": "git@github.com:pcw216/angular-watch-when.git",
+  "description": "$watch once, when I want you to"
+}
