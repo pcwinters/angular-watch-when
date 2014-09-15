@@ -9,7 +9,7 @@ For example, you might not expect an id property on some selected entity to chan
 
 ```bower install angular-watch-when```
 
-Add ```'ngWatchWhen'``` to your application or module.
+Add ```'ngWatchWhen'``` to your application or module dependencies.
 
 ##### Expression syntax
 The expression syntax is baked into $parse and can be used in $scope.$watch[*], templates, and directives. It's similar to the 'one-time' expressions described in the AngularJS 1.3 guide on expressions, [One-time Binding](https://code.angularjs.org/1.3.0-rc.1/docs/guide/expression).
