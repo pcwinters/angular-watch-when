@@ -5,6 +5,8 @@ Bind once is great, but sometimes you need your bindings to be a little smarter 
 
 For example, you might not expect an id property on some selected entity to change; but what if the selected entity changes? You might like your bindings, links, etc. to reflect the changed reference, re-fire, and go away again. If used properly, this can significantly reduce the number of active watchers (like regular bind-once), while keeping the app reactive to the data you expect to change.
 
+[JSFiddle](http://jsfiddle.net/95e2xnqf/)
+
 ### Usage
 
 ```bower install angular-watch-when```
