@@ -1,4 +1,4 @@
-describe 'ngWatchWhen', ->
+describe 'ngWatchWhen:func', ->
 
 	describe 'using $scope.$watch', ->
 

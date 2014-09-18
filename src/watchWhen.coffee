@@ -8,13 +8,17 @@ wrap = (listener, toDo, invokeAlways, isDefined) ->
 
 angular.module('ngWatchWhen', [])
 .constant 'ngWatchWhenRegEx', /^\:\:([^\:]+)(\:\:[^\:]+)$/
+.value 'ngWatchWhenCloneExpression', (getter)->
+	clone = -> getter.apply @, arguments
+	return _.merge(clone, getter)
 .config ($provide)->
-	$provide.decorator '$parse', ($delegate, ngWatchWhenRegEx, ngWatchWhenDelegateFactory)->
+	$provide.decorator '$parse', ($delegate, ngWatchWhenRegEx, ngWatchWhenDelegateFactory, ngWatchWhenCloneExpression)->
 		return _.wrap $delegate, ($parse, exp, interceptor)->
 			if angular.isString(exp) and match = exp.match(ngWatchWhenRegEx)
 				[exp, whenStr, onceStr] = match
 				whenExp = $parse.apply(@, [whenStr])
-				onceExp = $parse.apply(@, [onceStr, interceptor])
+				# clone the expression because of the $parse cache
+				onceExp = ngWatchWhenCloneExpression($parse.apply(@, [onceStr, interceptor])) 
 				onceExp.$$watchDelegate = ngWatchWhenDelegateFactory(whenExp, onceExp)
 				return onceExp
 			else

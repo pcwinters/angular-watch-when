@@ -1,4 +1,4 @@
-describe 'ngWatchWhen', ->
+describe 'ngWatchWhen:unit', ->
 
 	describe 'ngWatchWhenRegEx', ->
 		beforeEach ->
@@ -44,6 +44,7 @@ describe 'ngWatchWhen', ->
 				module 'ngWatchWhen'
 				module {
 					ngWatchWhenDelegateFactory: @ngWatchWhenDelegateFactory
+					ngWatchWhenCloneExpression: jasmine.createSpy('clone').andCallFake _.identity
 				}
 				inject (@$parse)->
 

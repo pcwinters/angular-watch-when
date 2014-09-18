@@ -17,14 +17,20 @@
     });
   };
 
-  angular.module('ngWatchWhen', []).constant('ngWatchWhenRegEx', /^\:\:([^\:]+)(\:\:[^\:]+)$/).config(function($provide) {
-    return $provide.decorator('$parse', function($delegate, ngWatchWhenRegEx, ngWatchWhenDelegateFactory) {
+  angular.module('ngWatchWhen', []).constant('ngWatchWhenRegEx', /^\:\:([^\:]+)(\:\:[^\:]+)$/).value('ngWatchWhenCloneExpression', function(getter) {
+    var clone;
+    clone = function() {
+      return getter.apply(this, arguments);
+    };
+    return _.merge(clone, getter);
+  }).config(function($provide) {
+    return $provide.decorator('$parse', function($delegate, ngWatchWhenRegEx, ngWatchWhenDelegateFactory, ngWatchWhenCloneExpression) {
       return _.wrap($delegate, function($parse, exp, interceptor) {
         var args, match, onceExp, onceStr, whenExp, whenStr;
         if (angular.isString(exp) && (match = exp.match(ngWatchWhenRegEx))) {
           exp = match[0], whenStr = match[1], onceStr = match[2];
           whenExp = $parse.apply(this, [whenStr]);
-          onceExp = $parse.apply(this, [onceStr, interceptor]);
+          onceExp = ngWatchWhenCloneExpression($parse.apply(this, [onceStr, interceptor]));
           onceExp.$$watchDelegate = ngWatchWhenDelegateFactory(whenExp, onceExp);
           return onceExp;
         } else {
